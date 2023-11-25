@@ -1,0 +1,30 @@
+from Crypto.Util.number import long_to_bytes
+
+n = 
+c = 
+e = 65537
+z = 1
+k = [] 
+ans = []
+for i in range(len(k)): 
+    z *= int(k[i])
+    ans.append(int(k[i]))
+p = ans 
+d = 1
+
+def egcd(a, b): 
+    if(a == 0): return [b, 0, 1]
+    else:
+        g, y, x = egcd(b % a, a)
+        return [g, x - (b // a) * y, y]
+def modInv(a, m): 
+    g, x, y = egcd(a, m)
+    if(g != 1): raise Exception("NO Modular exp")
+    else: return x % m
+
+phy = 1
+for a in p:
+    phy *=(a - 1) 
+d = modInv(e, phy)
+m = pow(c, d ,n)
+print(long_to_bytes(m)) 
